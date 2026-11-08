@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; script-src 'self'; style-src 'self'; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'self'">
+  <title>Товар — Вектор-Сервис</title>
+  <meta name="description" content="Карточка товара: цена, наличие, характеристики и похожие позиции.">
+  <meta name="theme-color" content="#0B5D4F">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#content">Перейти к содержанию</a>
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="logo" href="index.html" aria-label="Вектор-Сервис — каталог">
+        <svg class="logo__mark" viewBox="0 0 32 32" width="30" height="30" aria-hidden="true" focusable="false">
+          <rect x="2" y="2" width="28" height="28" rx="6" fill="#FFC21A"/>
+          <path d="M8 10l8 14 8-14" fill="none" stroke="#13201B" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="logo__text">Вектор-Сервис</span>
+      </a>
+      <p class="site-header__note">Запчасти и инструменты для ремонта электроники</p>
+    </div>
+  </header>
+
+  <main class="container page" id="content" tabindex="-1">
+    <nav class="crumbs" aria-label="Хлебные крошки">
+      <ol id="crumbs">
+        <li><a id="back" href="index.html">Каталог</a></li>
+      </ol>
+    </nav>
+
+    <div class="state" id="loading" aria-busy="true">
+      <p class="state__text">Загружаем товар…</p>
+      <div class="skeleton skeleton--media"></div>
+    </div>
+
+    <div class="state state--error" id="error" role="alert" hidden>
+      <h2 class="state__title">Товар не загрузился</h2>
+      <p class="state__text">Не удалось получить данные. Проверьте подключение к интернету и повторите.</p>
+      <button class="btn btn--primary" type="button" id="retry">Повторить</button>
+    </div>
+
+    <div class="state" id="notfound" role="alert" hidden>
+      <h2 class="state__title">Такого товара нет</h2>
+      <p class="state__text">Возможно, ссылка устарела или в адресе ошибка. Вернитесь в каталог и выберите товар из списка.</p>
+      <a class="btn btn--primary" id="notfound-back" href="index.html">Вернуться в каталог</a>
+    </div>
+
+    <article class="product" id="product" hidden>
+      <div class="product__media" id="p-media"></div>
+      <div class="product__info">
+        <h1 class="product__title" id="p-title">Товар</h1>
+        <p class="product__sku" id="p-sku"></p>
+        <p class="product__meta" id="p-meta"></p>
+        <p class="product__price" id="p-price"></p>
+        <p class="product__warranty" id="p-warranty"></p>
+        <p class="product__desc" id="p-desc"></p>
+        <p class="product__order">Заказ и консультация по телефону: <a class="link" href="tel:+74730000000">+7&nbsp;(473)&nbsp;000&#8209;00&#8209;00</a></p>
+      </div>
+
+      <section class="product__specs" aria-labelledby="specs-title">
+        <h2 id="specs-title" class="block-title">Характеристики</h2>
+        <table class="specs">
+          <tbody id="p-specs"></tbody>
+        </table>
+      </section>
+    </article>
+
+    <section class="related" id="related" aria-labelledby="related-title" hidden>
+      <h2 id="related-title" class="block-title">Похожие товары</h2>
+      <ul class="grid" id="related-list"></ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <p>Вектор-Сервис, 2026. Учебный проект: предприятие, бренды и товары вымышлены.</p>
+      <a class="link link--light" href="index.html">В каталог</a>
+    </div>
+  </footer>
+
+  <script src="js/dom.js"></script>
+  <script src="js/icons.js"></script>
+  <script src="js/logic.js"></script>
+  <script src="js/api.js"></script>
+  <script src="data/catalog.embedded.js"></script>
+  <script src="js/card.js"></script>
+  <script src="js/product.js"></script>
+</body>
+</html>

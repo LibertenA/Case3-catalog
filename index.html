@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; script-src 'self'; style-src 'self'; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'self'">
+  <title>Каталог запчастей и инструментов — Вектор-Сервис</title>
+  <meta name="description" content="Каталог запчастей, компонентов и инструментов для ремонта электроники: поиск, фильтры по категории, бренду и цене, сортировка.">
+  <meta name="theme-color" content="#0B5D4F">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#results">Перейти к списку товаров</a>
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="logo" href="index.html" aria-label="Вектор-Сервис — каталог">
+        <svg class="logo__mark" viewBox="0 0 32 32" width="30" height="30" aria-hidden="true" focusable="false">
+          <rect x="2" y="2" width="28" height="28" rx="6" fill="#FFC21A"/>
+          <path d="M8 10l8 14 8-14" fill="none" stroke="#13201B" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="logo__text">Вектор-Сервис</span>
+      </a>
+      <p class="site-header__note">Запчасти и инструменты для ремонта электроники</p>
+    </div>
+  </header>
+
+  <main>
+    <section class="band" aria-labelledby="page-title">
+      <div class="container">
+        <h1 id="page-title" class="band__title">Каталог запчастей и инструментов</h1>
+        <form class="searchbar" id="search-form" role="search" novalidate>
+          <label class="visually-hidden" for="q">Поиск по названию, бренду или артикулу</label>
+          <input class="searchbar__input" id="q" name="q" type="search" placeholder="Название, бренд или артикул" autocomplete="off" maxlength="60">
+          <button class="btn btn--signal" type="submit">Найти</button>
+        </form>
+      </div>
+    </section>
+
+    <div class="container layout">
+      <button class="filters-toggle" id="filters-toggle" type="button" aria-expanded="false" aria-controls="filters">
+        Фильтры<span id="filters-toggle-count"></span>
+      </button>
+
+      <aside class="filters" id="filters" aria-label="Фильтры каталога">
+        <fieldset class="filter">
+          <legend class="filter__title">Категория</legend>
+          <ul class="opts" id="filter-cat"></ul>
+        </fieldset>
+
+        <fieldset class="filter">
+          <legend class="filter__title">Бренд</legend>
+          <ul class="opts" id="filter-brand"></ul>
+        </fieldset>
+
+        <fieldset class="filter">
+          <legend class="filter__title">Цена, ₽</legend>
+          <div class="price">
+            <div class="price__field">
+              <label class="visually-hidden" for="f-min">Цена от</label>
+              <input class="input" id="f-min" type="number" inputmode="numeric" min="0" step="10" aria-describedby="price-error">
+            </div>
+            <span class="price__dash" aria-hidden="true">–</span>
+            <div class="price__field">
+              <label class="visually-hidden" for="f-max">Цена до</label>
+              <input class="input" id="f-max" type="number" inputmode="numeric" min="0" step="10" aria-describedby="price-error">
+            </div>
+          </div>
+          <p class="filter__error" id="price-error" hidden>Минимальная цена больше максимальной. Фильтр по цене пока не применяется.</p>
+        </fieldset>
+
+        <div class="filter">
+          <label class="opt opt--solo"><input type="checkbox" id="f-stock"><span class="opt__label">Только в наличии</span></label>
+        </div>
+
+        <button class="btn btn--ghost btn--wide" id="reset" type="button" disabled>Сбросить фильтры</button>
+      </aside>
+
+      <section class="results" id="results" aria-label="Список товаров" tabindex="-1">
+        <div class="results__bar">
+          <p class="results__count" id="count" role="status" aria-live="polite">Загружаем каталог…</p>
+          <div class="sort">
+            <label class="sort__label" for="sort">Сортировка</label>
+            <select class="input" id="sort">
+              <option value="default">По умолчанию</option>
+              <option value="price-asc">Сначала дешевле</option>
+              <option value="price-desc">Сначала дороже</option>
+              <option value="name">По названию</option>
+              <option value="rating">По рейтингу</option>
+            </select>
+          </div>
+        </div>
+
+        <ul class="chips" id="active" aria-label="Выбранные фильтры" hidden></ul>
+
+        <ul class="grid" id="loading" aria-label="Идёт загрузка" aria-busy="true">
+          <li class="card card--skeleton"><div class="skeleton skeleton--media"></div><div class="skeleton skeleton--line"></div><div class="skeleton skeleton--line skeleton--short"></div></li>
+          <li class="card card--skeleton"><div class="skeleton skeleton--media"></div><div class="skeleton skeleton--line"></div><div class="skeleton skeleton--line skeleton--short"></div></li>
+          <li class="card card--skeleton"><div class="skeleton skeleton--media"></div><div class="skeleton skeleton--line"></div><div class="skeleton skeleton--line skeleton--short"></div></li>
+          <li class="card card--skeleton"><div class="skeleton skeleton--media"></div><div class="skeleton skeleton--line"></div><div class="skeleton skeleton--line skeleton--short"></div></li>
+          <li class="card card--skeleton"><div class="skeleton skeleton--media"></div><div class="skeleton skeleton--line"></div><div class="skeleton skeleton--line skeleton--short"></div></li>
+          <li class="card card--skeleton"><div class="skeleton skeleton--media"></div><div class="skeleton skeleton--line"></div><div class="skeleton skeleton--line skeleton--short"></div></li>
+        </ul>
+
+        <ul class="grid" id="grid" hidden></ul>
+
+        <div class="state" id="empty" hidden>
+          <h2 class="state__title">Ничего не найдено</h2>
+          <p class="state__text" id="empty-text"></p>
+          <button class="btn btn--primary" type="button" id="empty-reset">Сбросить фильтры</button>
+        </div>
+
+        <div class="state state--error" id="error" role="alert" hidden>
+          <h2 class="state__title">Каталог не загрузился</h2>
+          <p class="state__text" id="error-text"></p>
+          <button class="btn btn--primary" type="button" id="retry">Повторить</button>
+        </div>
+
+        <noscript><p class="state state--error">Для работы каталога нужен включённый JavaScript.</p></noscript>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <p>Вектор-Сервис, 2026. Учебный проект: предприятие, бренды и товары вымышлены.</p>
+      <p>Телефон для заказов: <a class="link link--light" href="tel:+74730000000">+7&nbsp;(473)&nbsp;000&#8209;00&#8209;00</a></p>
+    </div>
+  </footer>
+
+  <script src="js/dom.js"></script>
+  <script src="js/icons.js"></script>
+  <script src="js/logic.js"></script>
+  <script src="js/api.js"></script>
+  <script src="data/catalog.embedded.js"></script>
+  <script src="js/card.js"></script>
+  <script src="js/catalog.js"></script>
+</body>
+</html>
